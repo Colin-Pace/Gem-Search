@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function myTimer() {
     traffic.update();
+    traffic.create();
   }
 
   document.addEventListener('keydown', frog.move.bind(frog));
