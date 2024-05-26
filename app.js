@@ -27,16 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     update(direction) {
       this.detectCollision();
+      this.detectGem();
       const board = document.getElementById("board");
       if (direction === "left") {
         const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
         oldFrog.style.backgroundColor = "white";
       } else if (direction === "up") {
-        if (this.row === -1) {
-          frog.style.backgroundColor = "white";
-          alert("Game over: win");
-          window.location.reload();
-        }
         const oldFrog = board.childNodes[this.row + 1].childNodes[this.column];
         oldFrog.style.backgroundColor = "white";
       } else if (direction === "right") {
@@ -82,6 +78,42 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.reload();
         }
       }
+    }
+
+    detectGem() {
+      if (this.row === gem.row && this.column === gem.column) {
+        gem.acquired = true;
+      }
+    }
+  }
+
+  class Gem {
+    constructor() {
+      this.row = null;
+      this.column = null;
+      this.acquired = false;
+    }
+
+    create() {
+      const board = document.getElementById("board");
+      this.row = Math.floor(Math.random() * 16);
+      this.column = Math.floor(Math.random() * 30);
+      const gemDiv = board.childNodes[this.row].childNodes[this.column];
+      
+      gemDiv.style.backgroundColor = "pink";
+      
+    }
+
+    update() {
+      // if (gem.acquired === true) {
+      //   gem.acquired = false;
+      //   points += 10;
+      //   const scoreBoard = document.getElementById("scoreBoard");
+      //   scoreBoard.removeChild(scoreBoard.firstTextChild);
+      //   const textNode = document.createTextNode("Points: " + points);
+      //   scoreBoard.append(textNode);
+      //   this.create();
+      // }
     }
   }
 
@@ -158,17 +190,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const board = new Board();
   const frog = new Frog();
+  let gem = new Gem();
+  let points = 0;
   const traffic = new Traffic();
   const updateGame = function() {
     traffic.update();
     traffic.create();
+    gem.update();
   }
 
   board.create();
   frog.create();
+  gem.create();
   traffic.create();
-  
-  //setInterval(updateGame, 200);
+
+  setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
