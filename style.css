@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: green;
+  margin-bottom: 40px;
+}
+
+#board {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+#board div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid gray;
+  height: 40px;
+}
+
+#board div div {
+  border: 1px solid gray;
+  height: 100%;
+  width: 100%;
+}
