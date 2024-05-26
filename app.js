@@ -26,12 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     update(direction) {
+      this.detectCollision();
       const board = document.getElementById("board");
       if (direction === "left") {
         const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
         oldFrog.style.backgroundColor = "white";
       } else if (direction === "up") {
-        if (this.row === 0) {
+        if (this.row === -1) {
+          frog.style.backgroundColor = "white";
           alert("Game over: win");
           window.location.reload();
         }
@@ -70,6 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
           this.row += 1;
           this.update("down");
           break;
+      }
+    }
+
+    detectCollision() {
+      for (let i = 0; i < traffic.cars.length; i++) {
+        if (this.row === traffic.cars[i].row && this.column === traffic.cars[i].column) {
+          alert("Game over");
+          window.location.reload();
+        }
       }
     }
   }
@@ -157,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
   frog.create();
   traffic.create();
   
-  setInterval(updateGame, 200);
+  //setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })

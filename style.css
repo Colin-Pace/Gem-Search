@@ -19,7 +19,7 @@ h1 {
   flex-direction: row;
   justify-content: space-between;
   height: 40px;
-  border-radius: 25px;
+  border-radius: 15px;
 }
 
 #board div div {
