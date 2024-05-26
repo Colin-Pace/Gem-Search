@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     create() {
       const board = document.getElementById("board");
-      const frog = board.childNodes[this.row].childNodes[this.column];
+      const car = board.childNodes[this.row].childNodes[this.column];
       
-      frog.style.backgroundColor = "red";
+      car.style.backgroundColor = "red";
     }
 
     update() {
@@ -113,27 +113,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     create() {
+      const cars = [];
       for (let i = 0; i < 15; i++) {
         const carNumber = Math.floor(Math.random() * 10);
         if (carNumber > 4) {
-          this.cars.push(true)
+          cars.push(true)
         } else {
-          this.cars.push(false)
+          cars.push(false)
         }
       }
 
       for (let i = 0; i < 15; i++) {
-        if (this.cars[i]) {
+        if (cars[i]) {
           const car = new Car(i, 29);
           car.create();
+          this.cars.push(car);
         }
       }
     }
 
     update() {
-      // const board = document.getElementById("board");
-      // const cars = board.childNodes[this.row].childNodes[this.column];
-      // cars.style.backgroundColor = "red";
+      for (let i = 0; i < this.cars.length; i++) {
+        this.cars[i].column -= 1;
+        this.cars[i].update();
+      }
     }
   }
 
@@ -144,6 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
   board.create();
   frog.create();
   traffic.create();
+  
+  setInterval(myTimer, 1000);
+
+  function myTimer() {
+    traffic.update();
+  }
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
