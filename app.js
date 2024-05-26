@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.getElementById("board").appendChild(node);
       }
+      this.createScoreBoard();
+    }
+
+    createScoreBoard() {
+      const scoreBoard = document.getElementById("scoreBoard");
+      const textNode = document.createTextNode("Points: " + points);
+      scoreBoard.append(textNode);
     }
   }
 
@@ -96,24 +103,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     create() {
       const board = document.getElementById("board");
-      this.row = Math.floor(Math.random() * 16);
-      this.column = Math.floor(Math.random() * 30);
+      this.row = Math.floor(Math.random() * 15) + 1;
+      this.column = Math.floor(Math.random() * 29) + 1;
       const gemDiv = board.childNodes[this.row].childNodes[this.column];
       
-      gemDiv.style.backgroundColor = "pink";
-      
+
+      gemDiv.style.backgroundColor = "blue";
     }
 
     update() {
-      // if (gem.acquired === true) {
-      //   gem.acquired = false;
-      //   points += 10;
-      //   const scoreBoard = document.getElementById("scoreBoard");
-      //   scoreBoard.removeChild(scoreBoard.firstTextChild);
-      //   const textNode = document.createTextNode("Points: " + points);
-      //   scoreBoard.append(textNode);
-      //   this.create();
-      // }
+      if (gem.acquired === true) {
+        gem.acquired = false;
+        points += 10;
+        const scoreBoard = document.getElementById("scoreBoard");
+        scoreBoard.innerText = ("Points: " + points);
+        this.create();
+      }
     }
   }
 
@@ -127,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const board = document.getElementById("board");
       const car = board.childNodes[this.row].childNodes[this.column];
       if (this.row > 0) {
-        car.style.backgroundColor = "red";
+        car.style.backgroundColor = "orange";
       }
     }
 
@@ -143,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }  
       
       if (newCar !== undefined) {
-        newCar.style.backgroundColor = "red";
+        newCar.style.backgroundColor = "orange";
       }
     }
 
@@ -204,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gem.create();
   traffic.create();
 
-  setInterval(updateGame, 200);
+  //setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
