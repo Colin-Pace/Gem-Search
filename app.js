@@ -17,17 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
       this.row = 15;
       this.column = 15;
     }
-    // for (let i = 0; i < 15; i++) {
-    //   for (let j = 0; j < 30; j++) {
-    //     console.log(board.childNodes[i].childNodes[j]);
-    //   }
-    // }
-
+    
     create() {
       const board = document.getElementById("board");
       const frog = board.childNodes[this.row].childNodes[this.column];
       frog.style.backgroundColor = "green";
-      //console.log(this.coordinates);
     }
 
     updateFrog(direction) {
@@ -35,15 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
       if (direction === "left") {
         const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
         oldFrog.style.backgroundColor = "white";
+      } else if (direction === "up") {
+        const oldFrog = board.childNodes[this.row + 1].childNodes[this.column];
+        oldFrog.style.backgroundColor = "white";
+      } else if (direction === "right") {
+        const oldFrog = board.childNodes[this.row].childNodes[this.column - 1];
+        oldFrog.style.backgroundColor = "white";
+      } else {
+        const oldFrog = board.childNodes[this.row - 1].childNodes[this.column];
+        oldFrog.style.backgroundColor = "white";
       }
 
       const newFrog = board.childNodes[this.row].childNodes[this.column];
       newFrog.style.backgroundColor = "green";
-      //console.log(this.coordinates);
     }
 
     move(e) {
-      //console.log(this.coordinates);
       switch(e.keyCode) {
         case 37:
           this.column -= 1;
@@ -51,18 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
 
         case 38:
-          this.column -= 1;
-          this.updateFrog("left");
+          this.row -= 1;
+          this.updateFrog("up");
           break;
 
         case 39:
-          this.column -= 1;
-          this.updateFrog("left");
+          this.column += 1;
+          this.updateFrog("right");
           break;
 
         case 40:
-          this.column -= 1;
-          this.updateFrog("left");
+          this.row += 1;
+          this.updateFrog("down");
           break;
       }
     }
