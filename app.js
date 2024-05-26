@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
         oldFrog.style.backgroundColor = "white";
       } else if (direction === "up") {
+        if (this.row === 0) {
+          alert("Game over: win");
+          window.location.reload();
+        }
         const oldFrog = board.childNodes[this.row + 1].childNodes[this.column];
         oldFrog.style.backgroundColor = "white";
       } else if (direction === "right") {
@@ -85,6 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     update() {
+      this.detectCollision();
+
       const board = document.getElementById("board");
       const oldCar = board.childNodes[this.row].childNodes[this.column + 1];
       const newCar = board.childNodes[this.row].childNodes[this.column];
@@ -95,6 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (newCar !== undefined) {
         newCar.style.backgroundColor = "red";
+      }
+    }
+
+    detectCollision() {
+      if (this.column === frog.column && this.row === frog.row) {
+        alert("Game over");
+        window.location.reload();
       }
     }
   }
@@ -144,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
   frog.create();
   traffic.create();
   
-  //setInterval(updateGame, 200);
+  setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
