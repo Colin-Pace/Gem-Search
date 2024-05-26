@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     update(direction) {
-      this.detectCollision();
-      this.detectGem();
       const board = document.getElementById("board");
       if (direction === "left") {
         if (this.column === 0) {
@@ -69,6 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
           oldFrog.style.backgroundColor = "white";
         }
       }
+
+      this.detectCollision();
+      this.detectGem();
 
       const newFrog = board.childNodes[this.row].childNodes[this.column];
       newFrog.style.backgroundColor = "green";
