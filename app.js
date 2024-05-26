@@ -1,17 +1,3 @@
-/*
-
-Document Structure
-
-1. Classes
-      A. Board
-      B. Frog
-      C. Car
-      D. Traffic
-
-
-
-*/
-
 document.addEventListener("DOMContentLoaded", () => {
   class Board {
     create() {
@@ -93,8 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
     create() {
       const board = document.getElementById("board");
       const car = board.childNodes[this.row].childNodes[this.column];
-      
-      car.style.backgroundColor = "red";
+      if (this.row > 0) {
+        car.style.backgroundColor = "red";
+      }
     }
 
     update() {
@@ -102,8 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const oldCar = board.childNodes[this.row].childNodes[this.column + 1];
       const newCar = board.childNodes[this.row].childNodes[this.column];
 
-      oldCar.style.backgroundColor = "white";
-      newCar.style.backgroundColor = "red";
+      if (oldCar !== undefined) {
+        oldCar.style.backgroundColor = "white";
+      }  
+      
+      if (newCar !== undefined) {
+        newCar.style.backgroundColor = "red";
+      }
     }
   }
 
@@ -116,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const cars = [];
       for (let i = 0; i < 15; i++) {
         const carNumber = Math.floor(Math.random() * 10);
-        if (carNumber > 4) {
+        if (carNumber > 8) {
           cars.push(true)
         } else {
           cars.push(false)
@@ -143,17 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const board = new Board();
   const frog = new Frog();
   const traffic = new Traffic();
+  const updateGame = function() {
+    traffic.update();
+    traffic.create();
+  }
 
   board.create();
   frog.create();
   traffic.create();
   
-  setInterval(myTimer, 1000);
-
-  function myTimer() {
-    traffic.update();
-    traffic.create();
-  }
+  //setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
