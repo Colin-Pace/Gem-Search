@@ -144,7 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const newCar = board.childNodes[this.row].childNodes[this.column];
 
       if (oldCar !== undefined) {
-        oldCar.style.backgroundColor = "white";
+        if (this.row === gem.row && this.column + 1 === gem.column) {
+          oldCar.style.backgroundColor = "blue";
+        } else {
+          oldCar.style.backgroundColor = "white";
+        }
       }  
       
       if (newCar !== undefined) {
@@ -209,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gem.create();
   traffic.create();
 
-  //setInterval(updateGame, 200);
+  setInterval(updateGame, 200);
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })
