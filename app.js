@@ -37,17 +37,37 @@ document.addEventListener("DOMContentLoaded", () => {
       this.detectGem();
       const board = document.getElementById("board");
       if (direction === "left") {
-        const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
-        oldFrog.style.backgroundColor = "white";
+        if (this.column === 0) {
+          return;
+        } else {
+          this.column -= 1;
+          const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
+          oldFrog.style.backgroundColor = "white";
+        }
       } else if (direction === "up") {
-        const oldFrog = board.childNodes[this.row + 1].childNodes[this.column];
-        oldFrog.style.backgroundColor = "white";
+        if (this.row === 1) {
+          return;
+        } else {
+          this.row -= 1;
+          const oldFrog = board.childNodes[this.row + 1].childNodes[this.column];
+          oldFrog.style.backgroundColor = "white";
+        }
       } else if (direction === "right") {
-        const oldFrog = board.childNodes[this.row].childNodes[this.column - 1];
-        oldFrog.style.backgroundColor = "white";
+        if (this.column === 29) {
+          return;
+        } else {
+          this.column += 1;
+          const oldFrog = board.childNodes[this.row].childNodes[this.column - 1];
+          oldFrog.style.backgroundColor = "white";
+        }
       } else {
-        const oldFrog = board.childNodes[this.row - 1].childNodes[this.column];
-        oldFrog.style.backgroundColor = "white";
+        if (this.row === 15) {
+          return;
+        } else {
+          this.row += 1;
+          const oldFrog = board.childNodes[this.row - 1].childNodes[this.column];
+          oldFrog.style.backgroundColor = "white";
+        }
       }
 
       const newFrog = board.childNodes[this.row].childNodes[this.column];
@@ -57,22 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
     move(e) {
       switch(e.keyCode) {
         case 37:
-          this.column -= 1;
           this.update("left");
           break;
 
         case 38:
-          this.row -= 1;
           this.update("up");
           break;
 
         case 39:
-          this.column += 1;
           this.update("right");
           break;
 
         case 40:
-          this.row += 1;
           this.update("down");
           break;
       }
@@ -172,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
     create() {
       const cars = [];
       for (let i = 0; i < 15; i++) {
-        const carNumber = Math.floor(Math.random() * 10);
-        if (carNumber > 8) {
+        const carNumber = Math.floor(Math.random() * 40);
+        if (carNumber > 35) {
           cars.push(true)
         } else {
           cars.push(false)
