@@ -1,3 +1,17 @@
+/*
+
+Document Structure
+
+1. Classes
+      A. Board
+      B. Frog
+      C. Car
+      D. Traffic
+
+
+
+*/
+
 document.addEventListener("DOMContentLoaded", () => {
   class Board {
     create() {
@@ -17,14 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
       this.row = 15;
       this.column = 15;
     }
-    
+
     create() {
       const board = document.getElementById("board");
       const frog = board.childNodes[this.row].childNodes[this.column];
+      
       frog.style.backgroundColor = "green";
     }
 
-    updateFrog(direction) {
+    update(direction) {
       const board = document.getElementById("board");
       if (direction === "left") {
         const oldFrog = board.childNodes[this.row].childNodes[this.column + 1];
@@ -48,32 +63,87 @@ document.addEventListener("DOMContentLoaded", () => {
       switch(e.keyCode) {
         case 37:
           this.column -= 1;
-          this.updateFrog("left");
+          this.update("left");
           break;
 
         case 38:
           this.row -= 1;
-          this.updateFrog("up");
+          this.update("up");
           break;
 
         case 39:
           this.column += 1;
-          this.updateFrog("right");
+          this.update("right");
           break;
 
         case 40:
           this.row += 1;
-          this.updateFrog("down");
+          this.update("down");
           break;
       }
     }
   }
 
+  class Car {
+    constructor(row, column) {
+      this.row = row;
+      this.column = column;
+    }
+
+    create() {
+      const board = document.getElementById("board");
+      const frog = board.childNodes[this.row].childNodes[this.column];
+      
+      frog.style.backgroundColor = "red";
+    }
+
+    update() {
+      const board = document.getElementById("board");
+      const oldCar = board.childNodes[this.row].childNodes[this.column + 1];
+      const newCar = board.childNodes[this.row].childNodes[this.column];
+
+      oldCar.style.backgroundColor = "white";
+      newCar.style.backgroundColor = "red";
+    }
+  }
+
+  class Traffic {
+    constructor() {
+      this.cars = [];
+    }
+
+    create() {
+      for (let i = 0; i < 15; i++) {
+        const carNumber = Math.floor(Math.random() * 10);
+        if (carNumber > 4) {
+          this.cars.push(true)
+        } else {
+          this.cars.push(false)
+        }
+      }
+
+      for (let i = 0; i < 15; i++) {
+        if (this.cars[i]) {
+          const car = new Car(i, 29);
+          car.create();
+        }
+      }
+    }
+
+    update() {
+      // const board = document.getElementById("board");
+      // const cars = board.childNodes[this.row].childNodes[this.column];
+      // cars.style.backgroundColor = "red";
+    }
+  }
+
   const board = new Board();
   const frog = new Frog();
+  const traffic = new Traffic();
 
   board.create();
   frog.create();
+  traffic.create();
 
   document.addEventListener('keydown', frog.move.bind(frog));
 })

@@ -9,6 +9,7 @@ h1 {
 }
 
 #board {
+  border: 1px solid gray;
   margin-left: 80px;
   margin-right: 80px;
 }
@@ -17,12 +18,11 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid gray;
   height: 40px;
+  border-radius: 25px;
 }
 
 #board div div {
-  border: 1px solid gray;
   height: 100%;
   width: 100%;
 }
