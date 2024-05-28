@@ -2,8 +2,39 @@
   margin: 0;
 }
 
+#navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+#rightNavContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#topScoresTitle, #scoreBoard, #hardButton {
+  margin-left: 40px;
+}
+
+#topScoresTitle, #gameLink {
+  font-size: 24px;
+  color: blue;
+  font-weight: bold;
+}
+
+#hardButton, #easyButton {
+  height: 40px;
+  width: 60px;
+  border-color: blue;
+  border-radius: 5px;
+  background-color: white;
+  color: green;
+}
+
 h1, h2 {
-  text-align: center;
   color: green;
   margin-bottom: 40px;
 }
@@ -12,6 +43,7 @@ h1, h2 {
   border: 1px solid gray;
   margin-left: 80px;
   margin-right: 80px;
+  border-radius: 15px;
 }
 
 #board div {
@@ -25,4 +57,15 @@ h1, h2 {
 #board div div {
   height: 100%;
   width: 100%;
+}
+
+#topScores {
+  margin-top: 200px;
+  text-align: left;
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-bottom: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

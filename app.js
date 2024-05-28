@@ -109,6 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
         gem.acquired = true;
       }
     }
+
+    reset() {
+      this.row = 15;
+      this.column = 15;
+
+      const board = document.getElementById("board");
+      const frog = board.childNodes[this.row].childNodes[this.column];
+      
+      frog.style.backgroundColor = "green";
+    }
   }
 
   class Gem {
@@ -129,6 +139,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     update() {
+      if (gameStarted = true) {
+        const scoreBoard = document.getElementById("scoreBoard");
+        scoreBoard.innerText = ("Points: " + points);
+
+      }
+
       if (gem.acquired === true) {
         gem.acquired = false;
         points += 10;
@@ -212,6 +228,19 @@ document.addEventListener("DOMContentLoaded", () => {
         this.cars[i].update();
       }
     }
+
+    clearBoard() {
+      const board = document.getElementById("board");
+      for (let i = 0; i < board.childNodes.length; i++) {
+        const row = board.childNodes[i];
+        for (let j = 0; j < row.childNodes.length; j++) {
+          const node = row.childNodes[j];
+          node.style.backgroundColor = "white";
+        }
+      }
+      this.cars = [];
+      gem.create();
+    }
   }
 
   const board = new Board();
@@ -224,13 +253,35 @@ document.addEventListener("DOMContentLoaded", () => {
     traffic.create();
     gem.update();
   }
+  const handleEasyButtonClick = function() {
+    points = 0;
+    gem.update();
+    gameStarted = false;
+    clearInterval(intervalId);
+    traffic.clearBoard();
+    frog.reset();
+    traffic.create();
+    intervalId = setInterval(updateGame, 650);
+  }
+  const handleHardButtonClick = function() {
+    points = 0;
+    gem.update();
+    gameStarted = false;
+    clearInterval(intervalId);
+    traffic.clearBoard();
+    frog.reset();
+    traffic.create();
+    intervalId = setInterval(updateGame, 200);
+  }
 
   board.create();
   frog.create();
-  gem.create();
-  traffic.create();
-
-  setInterval(updateGame, 200);
-
-  document.addEventListener('keydown', frog.move.bind(frog));
+  
+  let intervalId;
+  let gameStarted = false;
+  const easyButton = document.getElementById("easyButton");
+  const hardButton = document.getElementById("hardButton");
+  easyButton.addEventListener("click", handleEasyButtonClick);
+  hardButton.addEventListener("click", handleHardButtonClick);
+  document.addEventListener("keydown", frog.move.bind(frog));
 })
