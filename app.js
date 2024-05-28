@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detectCollision() {
       for (let i = 0; i < traffic.cars.length; i++) {
         if (this.row === traffic.cars[i].row && this.column === traffic.cars[i].column) {
-          alert("Game over");
+          alert("Game over. Points: " + points);
           window.location.reload();
         }
       }
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     detectCollision() {
       if (this.column === frog.column && this.row === frog.row) {
-        alert("Game over");
+        alert("Game over. Points: " + points);
         window.location.reload();
       }
     }
