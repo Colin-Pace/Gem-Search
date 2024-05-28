@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  class Board {
+  class Board { 
     create() {
       for (let i = 0; i < 15; i++) {
         const node = document.createElement("div");
